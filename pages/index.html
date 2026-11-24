@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>足迹地图</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div class="brand">
+      <div class="logo">◍</div>
+      <div><h1>足迹地图</h1><p>TRAVEL ATLAS</p></div>
+    </div>
+
+    <div class="mode-switch" role="tablist">
+      <button class="mode on" data-mode="globe" role="tab"><span>世界</span><em>地球仪</em></button>
+      <button class="mode" data-mode="china" role="tab"><span>中国</span><em>城市</em></button>
+    </div>
+
+    <div class="top-actions">
+      <button class="ghost" id="btn-replay">回放</button>
+      <button class="ghost" id="btn-import" title="导入 JSON：软件导出的备份，或 DSH 整理好的地点列表">导入</button>
+      <button class="ghost" id="btn-export">导出</button>
+      <button class="primary" id="btn-add">＋ 记一笔</button>
+    </div>
+  </header>
+
+  <aside id="sidebar">
+    <div class="stats" id="stats"></div>
+    <div class="search"><input id="search" type="text" placeholder="搜城市 / 省份 / 国家 / 标签" /></div>
+    <div class="list-head">
+      <div class="tabs"><button class="on" data-tab="places">足迹</button><button data-tab="trips">行程</button></div>
+      <span id="list-count"></span>
+    </div>
+    <div class="list" id="list"></div>
+  </aside>
+
+  <main id="stage">
+    <canvas id="map"></canvas>
+    <div class="hud" id="hud"></div>
+    <div class="zoom">
+      <button id="zoom-in" title="放大">＋</button>
+      <button id="zoom-out" title="缩小">－</button>
+      <button id="zoom-reset" title="回到全局">◎</button>
+    </div>
+    <div class="hint" id="hint"></div>
+    <div class="replay-bar" id="replay-bar">
+      <span class="rb-date" id="rb-date"></span>
+      <span class="rb-name" id="rb-name"></span>
+      <span class="rb-count" id="rb-count"></span>
+      <button id="rb-stop">结束</button>
+    </div>
+    <div class="replay-setup" id="replay-setup">
+      <div class="rs-title">回放时间段</div>
+      <div class="rs-row">
+        <div class="rs-date" id="rs-from">
+          <input class="y" data-k="y" maxlength="4" placeholder="年" />
+          <input data-k="m" maxlength="2" placeholder="月" />
+          <input data-k="d" maxlength="2" placeholder="日" />
+        </div>
+        <span>至</span>
+        <div class="rs-date" id="rs-to">
+          <input class="y" data-k="y" maxlength="4" placeholder="年" />
+          <input data-k="m" maxlength="2" placeholder="月" />
+          <input data-k="d" maxlength="2" placeholder="日" />
+        </div>
+      </div>
+      <div class="rs-actions">
+        <button class="ghost" id="rs-all">全部</button>
+        <button class="primary" id="rs-start">开始</button>
+      </div>
+    </div>
+    <div id="tooltip"></div>
+  </main>
+
+  <section id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <div class="dh-txt">
+        <div class="dh-kicker" id="dh-kicker">新地点</div>
+        <h2 id="dh-title">记一笔</h2>
+        <div class="dh-sub" id="dh-sub"></div>
+      </div>
+      <button class="icon-btn star-btn" id="btn-star" title="收藏">☆</button>
+      <button class="icon-btn" id="btn-close-drawer" title="关闭">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-foot">
+      <button class="btn-danger" id="btn-delete-place" style="display:none">删除</button>
+      <div class="spacer"></div>
+      <button class="btn-save" id="btn-save">保存</button>
+    </div>
+  </section>
+</div>
+
+<div id="toast"></div>
+<input type="file" id="file-input" accept=".json,application/json" style="display:none" />
+
+<script src="geo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
